@@ -11,7 +11,7 @@
 	<groupId>si.plapt</groupId>
 	<artifactId>bolidemo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>BoliDemo</name>
 	<description>Demo project for Spring Boot by dr. Bogdan Lipus</description>
 
