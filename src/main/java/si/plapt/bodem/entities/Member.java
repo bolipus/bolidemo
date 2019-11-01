@@ -12,14 +12,16 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import si.plapt.bodem.dtos.MemberDTO;
 
 @Entity
 @Table(name="Member")
 @Data
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Member {
 
 	@Id
@@ -42,6 +44,15 @@ public class Member {
 		inverseJoinColumns = @JoinColumn(name="team_id")
 	)
 	private List<Team> teams;
+	
+	public Member(MemberDTO memberDTO) {
+		id = memberDTO.getId();
+		firstName = memberDTO.getFirstName();
+		lastName = memberDTO.getLastName();
+		birthday = memberDTO.getBirthday();
+		email = memberDTO.getEmail();
+		phone = memberDTO.getPhone();	
+	}
 	
 	public void addTeam(Team team) {
 		teams.add(team);
