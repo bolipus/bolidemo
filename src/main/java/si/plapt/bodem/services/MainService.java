@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import si.plapt.bodem.entities.Member;
+import si.plapt.bodem.entities.Team;
 
 @Service
 public interface MainService {
@@ -14,8 +15,22 @@ public interface MainService {
 	
 	Optional<Member> getMember(Long id);
 	
-	Member saveMember(Member lake);
+	Member saveMember(Member member);
 	
 	void deleteMember(Long id);
+	
+	
+	List<Team> getAllTeam();
+	
+	Optional<Team> getTeam(Long id);
+	
+	Team saveTeam(Team team);
+	
+	void deleteTeam(Long id);
+	
+	
+	
+	
+	
 	
 }

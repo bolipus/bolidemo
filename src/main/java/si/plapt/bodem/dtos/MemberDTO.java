@@ -23,5 +23,7 @@ public class MemberDTO {
 	private String email;
 	
 	private String phone;
+	
+	private RoleDTO role;
 
 }

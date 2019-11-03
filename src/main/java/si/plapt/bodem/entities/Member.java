@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -17,6 +18,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import si.plapt.bodem.dtos.MemberDTO;
+import si.plapt.bodem.dtos.RoleDTO;
 
 @Entity
 @Table(name="Member")
@@ -37,6 +39,9 @@ public class Member {
 	private String email;
 	
 	private String phone;
+	
+	@OneToOne
+	private Role role;
 
 	@ManyToMany
 	@JoinTable(name = "member_team",
@@ -77,7 +82,12 @@ public class Member {
 	}
 	
 	public MemberDTO createMemberDTO() {
-		return new MemberDTO(id, firstName, lastName, birthday, email, phone);
+		RoleDTO roleDTO = null;
+		if (role!= null) {
+			roleDTO = role.createRoleDTO();
+		}
+		
+		return new MemberDTO(id, firstName, lastName, birthday, email, phone, roleDTO);
 	}
 	
 }
