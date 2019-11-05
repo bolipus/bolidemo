@@ -1,9 +1,9 @@
 package si.plapt.bodem.entities;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,13 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.validation.GroupDefinitionException;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import si.plapt.bodem.dtos.TeamDTO;
 
 @Entity
@@ -31,8 +27,10 @@ public class Team {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(length = 100)
 	private String title;
 	
+	@Column(length = 255)
 	private String description;
 	
 	@ManyToMany(mappedBy = "teams", fetch = FetchType.LAZY)

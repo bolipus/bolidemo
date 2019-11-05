@@ -1,8 +1,6 @@
 package si.plapt.bodem.entities;
 
-import java.util.Date;
-import java.util.List;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,8 +21,10 @@ public class Role {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(length = 100)
 	private String title;
 	
+	@Column(length = 255)
 	private String description;
 	
 	@Override

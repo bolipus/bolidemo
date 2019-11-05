@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import si.plapt.bodem.entities.Game;
+import si.plapt.bodem.entities.Team;
 
 @Service
 public interface GameService {
@@ -17,4 +18,19 @@ public interface GameService {
 	Game saveGame(Game game);
 	
 	void deleteGame(Long id);
+	
+	List<Game> getAllGamesForTeam(Team team);
+	
+	List<Game> getAllHomeGamesForTeam(Team team);
+	
+	List<Game> getAllGuestGamesForTeam(Team team);
+	
+	List<Game> getAllWinningGamesForTeam(Team team);
+	
+	List<Game> getAllLosingGamesForTeam(Team team);
+	
+	List<Game> getAllDrawGamesForTeam(Team team);
+	
+	Integer getTotalScoreForTeam(Team team);
+	
 }

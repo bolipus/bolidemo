@@ -1,7 +1,5 @@
 package si.plapt.bodem.dtos;
 
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

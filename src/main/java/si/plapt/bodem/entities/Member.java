@@ -3,6 +3,7 @@ package si.plapt.bodem.entities;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,11 +13,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import si.plapt.bodem.dtos.MemberDTO;
 import si.plapt.bodem.dtos.RoleDTO;
 
@@ -30,17 +31,22 @@ public class Member {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(length = 255)
 	private String firstName;
 	
+	@Column(length = 255)
 	private String lastName;
 	
+	@Temporal(TemporalType.DATE)
 	private Date birthday;
 	
+	@Column(length = 100)
 	private String email;
 	
+	@Column(length = 16)
 	private String phone;
 	
-	@OneToOne
+	@OneToOne(optional = true)
 	private Role role;
 
 	@ManyToMany
@@ -50,13 +56,14 @@ public class Member {
 	)
 	private List<Team> teams;
 	
-	public Member(MemberDTO memberDTO) {
-		id = memberDTO.getId();
-		firstName = memberDTO.getFirstName();
-		lastName = memberDTO.getLastName();
-		birthday = memberDTO.getBirthday();
-		email = memberDTO.getEmail();
-		phone = memberDTO.getPhone();	
+	public Member(MemberDTO memberDTO, Role role) {
+		this.id = memberDTO.getId();
+		this.firstName = memberDTO.getFirstName();
+		this.lastName = memberDTO.getLastName();
+		this.birthday = memberDTO.getBirthday();
+		this.email = memberDTO.getEmail();
+		this.phone = memberDTO.getPhone();
+		this.role = role;
 	}
 	
 	public void addTeam(Team team) {

@@ -1,7 +1,6 @@
 package si.plapt.bodem.entities;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,7 +16,6 @@ import javax.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import si.plapt.bodem.dtos.GameDTO;
 import si.plapt.bodem.dtos.TeamDTO;
 

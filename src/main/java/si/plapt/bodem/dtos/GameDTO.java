@@ -1,10 +1,7 @@
 package si.plapt.bodem.dtos;
 
-import javax.persistence.ManyToOne;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import si.plapt.bodem.entities.Team;
 
 @Data
 @AllArgsConstructor
