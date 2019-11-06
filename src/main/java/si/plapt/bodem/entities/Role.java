@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import si.plapt.bodem.dtos.RoleDTO;
@@ -15,6 +16,7 @@ import si.plapt.bodem.dtos.RoleDTO;
 @Table(name="Role")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Role {
 	
 	@Id
@@ -26,6 +28,16 @@ public class Role {
 	
 	@Column(length = 255)
 	private String description;
+	
+	public Role(RoleDTO roleDTO) {
+		updateRole(roleDTO);
+	}
+	
+	public void updateRole(RoleDTO roleDTO) {
+		this.id = roleDTO.getId();
+		this.title = roleDTO.getTitle();
+		this.description = roleDTO.getDescription(); 
+	}
 	
 	@Override
     public boolean equals(Object o) {
