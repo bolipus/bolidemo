@@ -30,10 +30,10 @@ public class Role {
 	private String description;
 	
 	public Role(RoleDTO roleDTO) {
-		updateRole(roleDTO);
+		update(roleDTO);
 	}
 	
-	public void updateRole(RoleDTO roleDTO) {
+	public void update(RoleDTO roleDTO) {
 		this.id = roleDTO.getId();
 		this.title = roleDTO.getTitle();
 		this.description = roleDTO.getDescription(); 

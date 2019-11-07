@@ -17,16 +17,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import lombok.extern.log4j.Log4j2;
 import si.plapt.bodem.dtos.RoleDTO;
 import si.plapt.bodem.entities.Role;
 import si.plapt.bodem.services.CodesService;
 
 @RestController
-@CrossOrigin(origins = { "http://localhost:4200", "https://bldemo.web.app" })
+@CrossOrigin(origins = { 
+		"http://localhost:4200",
+		"https://bldemo.web.app" 
+})
 @RequestMapping("api/v1/codes")
 public class CodesController {
 
+	private static final String ROLE_WITH_ID_S_NOT_FOUND = "Role with id %s not found";
+	
 	@Autowired
 	CodesService codeService;
 
@@ -46,7 +50,7 @@ public class CodesController {
 		if (role.isPresent()) {
 			return ResponseEntity.ok(role.get().createRoleDTO());
 		} else {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Role with id %s nor found", id));
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format(ROLE_WITH_ID_S_NOT_FOUND, id));
 		}
 	}
 	
@@ -63,10 +67,10 @@ public class CodesController {
 		Optional<Role> role = codeService.getRole(id);
 		
 		if (!role.isPresent()) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Role with id %s nor found", id));
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format(ROLE_WITH_ID_S_NOT_FOUND, id));
 		}
 		
-		role.get().updateRole(roleDTO);
+		role.get().update(roleDTO);
 		
 		Role savedRole = codeService.saveRole(role.get());
 		
@@ -78,7 +82,7 @@ public class CodesController {
 		Optional<Role> role = codeService.getRole(id);
 		
 		if (!role.isPresent()) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Role with id %s nor found", id));
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format(ROLE_WITH_ID_S_NOT_FOUND, id));
 		}
 		
 		codeService.deleteRole(id);

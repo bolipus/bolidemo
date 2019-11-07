@@ -9,7 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -33,16 +32,30 @@ public class Team {
 	@Column(length = 255)
 	private String description;
 	
-	@ManyToMany(mappedBy = "teams", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
 	private List<Member> members;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Game> games;
 	
 	public Team(TeamDTO teamDTO) {
+		update(teamDTO);
+	}
+	
+	public void update(TeamDTO teamDTO) {
 		id = teamDTO.getId();
 		title = teamDTO.getTitle();
 		description = teamDTO.getDescription();		
+	}
+	
+	public void addMember(Member member) {
+		member.setTeam(this);
+		members.add(member);
+	}
+	
+	public void removeMember(Member member) {
+		member.setTeam(null);
+		members.remove(member);
 	}
 	
 	@Override
@@ -60,6 +73,8 @@ public class Team {
 	public TeamDTO createTeamDTO() {
 		return new TeamDTO(id, title, description);
 	}
+
+	
 
 	
 }

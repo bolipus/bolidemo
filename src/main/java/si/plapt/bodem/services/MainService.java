@@ -20,7 +20,7 @@ public interface MainService {
 	void deleteMember(Long id);
 	
 	
-	List<Team> getAllTeam();
+	List<Team> getAllTeams();
 	
 	Optional<Team> getTeam(Long id);
 	

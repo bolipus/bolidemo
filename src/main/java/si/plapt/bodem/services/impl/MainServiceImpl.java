@@ -45,7 +45,7 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public List<Team> getAllTeam() {
+	public List<Team> getAllTeams() {
 		List<Team> results = new ArrayList<>();
 		teamRepository.findAll().forEach(results::add);
 		return results;

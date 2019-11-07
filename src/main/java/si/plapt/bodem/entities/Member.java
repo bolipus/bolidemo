@@ -1,7 +1,6 @@
 package si.plapt.bodem.entities;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -49,14 +47,15 @@ public class Member {
 	@OneToOne(optional = true)
 	private Role role;
 
-	@ManyToMany
-	@JoinTable(name = "member_team",
-		joinColumns = @JoinColumn(name="member_id"),
-		inverseJoinColumns = @JoinColumn(name="team_id")
-	)
-	private List<Team> teams;
+	@ManyToOne
+	@JoinColumn(name="team_id", nullable=false)
+	private Team team;
 	
 	public Member(MemberDTO memberDTO, Role role) {
+		update(memberDTO, role);
+	}
+	
+	public void update(MemberDTO memberDTO, Role role) {
 		this.id = memberDTO.getId();
 		this.firstName = memberDTO.getFirstName();
 		this.lastName = memberDTO.getLastName();
@@ -66,15 +65,6 @@ public class Member {
 		this.role = role;
 	}
 	
-	public void addTeam(Team team) {
-		teams.add(team);
-		team.getMembers().add(this);
-	}
-	
-	public void removeTeam(Team team) {
-		teams.remove(team);
-		team.getMembers().remove(this);
-	}
 	
 	@Override
     public boolean equals(Object o) {
@@ -96,5 +86,6 @@ public class Member {
 		
 		return new MemberDTO(id, firstName, lastName, birthday, email, phone, roleDTO);
 	}
+
 	
 }
