@@ -45,6 +45,19 @@ public class Game {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 	
+	public Game(GameDTO gameDTO, Team homeTeam, Team guestTeam) {
+		update(gameDTO, homeTeam, guestTeam);
+	}
+	
+	public void update(GameDTO gameDTO, Team homeTeam, Team guestTeam) {
+		id = gameDTO.getId();
+		homeScore = gameDTO.getHomeScore();
+		guestScore = gameDTO.getGuestScore();
+		date = gameDTO.getDate();
+		this.homeTeam = homeTeam;
+		this.guestTeam = guestTeam;
+	}
+	
 	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -58,10 +71,18 @@ public class Game {
 	}
 	
 	public GameDTO createGameDTO() {
-		TeamDTO homeTeamDTO = homeTeam.createTeamDTO();
-		TeamDTO guestTeamDTO = guestTeam.createTeamDTO();
 		
-		return new GameDTO(id, homeTeamDTO, guestTeamDTO, homeScore, guestScore);		
+		TeamDTO homeTeamDTO = null;
+		if (homeTeam != null) {
+			homeTeamDTO = homeTeam.createTeamDTO();
+		}
+		
+		TeamDTO guestTeamDTO = null;
+		if (homeTeam != null) {
+			guestTeamDTO = guestTeam.createTeamDTO();
+		}			
+		
+		return new GameDTO(id, homeTeamDTO, guestTeamDTO, homeScore, guestScore, date);		
 	}
 
 }

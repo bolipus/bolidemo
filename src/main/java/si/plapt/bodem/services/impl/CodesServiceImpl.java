@@ -8,6 +8,7 @@ import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import si.plapt.bodem.entities.Role;
 import si.plapt.bodem.repositories.RoleRepository;
@@ -37,11 +38,13 @@ public class CodesServiceImpl implements CodesService {
 	}
 
 	@Override
+	@Transactional
 	public Role saveRole(Role role) {
 		return roleRepository.save(role);
 	}
 
 	@Override
+	@Transactional
 	public void deleteRole(Long id) {	
 		roleRepository.deleteById(id);
 	}

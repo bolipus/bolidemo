@@ -1,5 +1,7 @@
 package si.plapt.bodem.dtos;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -16,4 +18,6 @@ public class GameDTO {
 	private Integer homeScore;
 
 	private Integer guestScore;
+	
+	private Date date;
 }

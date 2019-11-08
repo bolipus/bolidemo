@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import si.plapt.bodem.entities.Member;
 import si.plapt.bodem.entities.Team;
@@ -35,11 +36,13 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
+	@Transactional
 	public Member saveMember(Member member) {
 		return memberRepository.save(member);
 	}
 
 	@Override
+	@Transactional
 	public void deleteMember(Long id) {
 		memberRepository.deleteById(id);		
 	}

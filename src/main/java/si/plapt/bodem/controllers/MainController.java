@@ -71,7 +71,7 @@ public class MainController {
 		
 		Optional<Role> role = codeService.getRole(memberDTO.getRole().getId());
 		
-		Member member = new Member(memberDTO, role.get());
+		Member member = new Member(memberDTO, role.orElseGet(null));
 		Member savedMember =  mainService.saveMember(member);
 		
 		return ResponseEntity.ok(savedMember.createMemberDTO());

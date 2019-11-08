@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import si.plapt.bodem.entities.Game;
 import si.plapt.bodem.entities.Team;
@@ -31,11 +32,13 @@ public class GameServiceImpl implements GameService {
 	}
 
 	@Override
+	@Transactional
 	public Game saveGame(Game game) {
 		return gameRepository.save(game);
 	}
 
 	@Override
+	@Transactional
 	public void deleteGame(Long id) {
 		gameRepository.deleteById(id);
 	}
