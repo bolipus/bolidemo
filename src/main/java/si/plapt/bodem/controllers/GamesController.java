@@ -1,11 +1,16 @@
 package si.plapt.bodem.controllers;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.ws.rs.Produces;
+
+import org.apache.tomcat.util.buf.ByteChunk.ByteOutputChannel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,6 +26,7 @@ import si.plapt.bodem.dtos.GameDTO;
 import si.plapt.bodem.dtos.TeamDTO;
 import si.plapt.bodem.entities.Game;
 import si.plapt.bodem.entities.Team;
+import si.plapt.bodem.services.AppException;
 import si.plapt.bodem.services.GameService;
 import si.plapt.bodem.services.MainService;
 
@@ -107,7 +113,7 @@ public class GamesController {
 		return ResponseEntity.ok().build();
 	}
 	
-	@GetMapping("teams/{id}/games")
+	@GetMapping("/teams/{id}/games")
 	public ResponseEntity<List<GameDTO>> getAllGamesForTeam(@PathVariable("id") Long id) {
 		
 		Optional<Team> team = mainService.getTeam(id);
@@ -139,7 +145,7 @@ public class GamesController {
 
 	}
 	
-	@GetMapping("teams/{id}/guest/games")
+	@GetMapping("/teams/{id}/guest/games")
 	public ResponseEntity<List<GameDTO>> getAllGuestGamesForTeam(@PathVariable("id") Long id) {
 		
 		Optional<Team> team = mainService.getTeam(id);
@@ -156,7 +162,7 @@ public class GamesController {
 	}
 	
 	
-	@GetMapping("teams/{id}/totalScore")
+	@GetMapping("/teams/{id}/totalScore")
 	public ResponseEntity<Integer> getTotalScoreForTeam(@PathVariable("id") Long id) {
 		
 		Optional<Team> team = mainService.getTeam(id);
@@ -171,7 +177,7 @@ public class GamesController {
 
 	}
 	
-	@GetMapping("teams/{id}/winning/games")
+	@GetMapping("/teams/{id}/winning/games")
 	public ResponseEntity<List<GameDTO>> getAllWinningGamesForTeam(@PathVariable("id") Long id) {
 		
 		Optional<Team> team = mainService.getTeam(id);
@@ -186,7 +192,7 @@ public class GamesController {
 		}
 	}
 	
-	@GetMapping("teams/{id}/losing/games")
+	@GetMapping("/teams/{id}/losing/games")
 	public ResponseEntity<List<GameDTO>> getAllLosingGamesForTeam(@PathVariable("id") Long id) {
 		
 		Optional<Team> team = mainService.getTeam(id);
@@ -202,7 +208,7 @@ public class GamesController {
 
 	}
 	
-	@GetMapping("teams/{id}/draw/games")
+	@GetMapping("/teams/{id}/draw/games")
 	public ResponseEntity<List<GameDTO>> getAllDrawGamesForTeam(@PathVariable("id") Long id) {
 		
 		Optional<Team> team = mainService.getTeam(id);
@@ -216,5 +222,22 @@ public class GamesController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format(GAME_WITH_ID_S_NOT_FOUND, id));
 		}
 
+	}
+	
+	@GetMapping("/games/report")
+	@Produces(MediaType.APPLICATION_PDF_VALUE)
+	public ResponseEntity<byte[]> generateReport(){
+		String fileName = "GameReport.pdf";
+		try {
+			ByteArrayOutputStream bos = gameService.generatePdfReport();
+			
+			return ResponseEntity.ok()
+					.contentType(MediaType.APPLICATION_PDF)
+					.header("Content-disposition", "attachment;filename=" +fileName)
+					.body(bos.toByteArray());
+			
+		} catch (AppException e) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+		}
 	}
 }

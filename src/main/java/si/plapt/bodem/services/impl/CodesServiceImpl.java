@@ -28,7 +28,7 @@ public class CodesServiceImpl implements CodesService {
 	@Override
 	public List<Role> getAllRolesOrderByTitleDesc() {
 		List<Role> results = new ArrayList<>();
-		roleRepository.findAllRolesOrderByTitleAsc().forEach(results::add);		
+		roleRepository.findAllRoleByOrderByTitleAsc().forEach(results::add);		
 		return results;
 	}
 

@@ -1,5 +1,6 @@
 package si.plapt.bodem.services;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,5 +33,9 @@ public interface GameService {
 	List<Game> getAllDrawGamesForTeam(Team team);
 	
 	Integer getTotalScoreForTeam(Team team);
+	
+	ByteArrayOutputStream generatePdfReport() throws AppException;
+	
+	
 	
 }

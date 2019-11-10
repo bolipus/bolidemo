@@ -8,5 +8,5 @@ import si.plapt.bodem.entities.Role;
 @Repository
 public interface RoleRepository extends CrudRepository<Role, Long> {
 
-	Iterable<Role> findAllRolesOrderByTitleAsc();
+	Iterable<Role> findAllRoleByOrderByTitleAsc();
 }
