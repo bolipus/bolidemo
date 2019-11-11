@@ -30,7 +30,6 @@ public class CodeServiceTests {
 	@Autowired
 	private CodesService codeService;
 	
-	// ALL TEST CREATED ACCORDING TO INITAL DATABASE SETUP
 	
 	@Test
 	public void getAllRolesTest() {
