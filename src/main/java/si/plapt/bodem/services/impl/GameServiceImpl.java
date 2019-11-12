@@ -121,7 +121,7 @@ public class GameServiceImpl implements GameService {
 			document.add(chunk2);
 			
 		} catch (DocumentException e) {
-			throw new AppException(e.getMessage());
+			throw new AppException(e.getMessage(), e);
 		}
 		document.close();
 		
