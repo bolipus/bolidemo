@@ -5,19 +5,19 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import si.plapt.bodem.entities.Member;
+import si.plapt.bodem.entities.Player;
 import si.plapt.bodem.entities.Team;
 
 @Service
 public interface MainService {
 
-	List<Member> getAllMembers();
+	List<Player> getAllPlayers();
 	
-	Optional<Member> getMember(Long id);
+	Optional<Player> getPlayer(Long id);
 	
-	Member saveMember(Member member);
+	Player savePlayer(Player member);
 	
-	void deleteMember(Long id);
+	void deletePlayer(Long id);
 	
 	
 	List<Team> getAllTeams();

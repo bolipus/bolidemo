@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 import javax.ws.rs.Produces;
 
-import org.apache.tomcat.util.buf.ByteChunk.ByteOutputChannel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import si.plapt.bodem.dtos.GameDTO;
-import si.plapt.bodem.dtos.TeamDTO;
 import si.plapt.bodem.entities.Game;
 import si.plapt.bodem.entities.Team;
 import si.plapt.bodem.services.AppException;

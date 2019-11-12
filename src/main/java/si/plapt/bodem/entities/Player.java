@@ -17,15 +17,15 @@ import javax.persistence.TemporalType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import si.plapt.bodem.dtos.MemberDTO;
-import si.plapt.bodem.dtos.RoleDTO;
+import si.plapt.bodem.dtos.PlayerDTO;
+import si.plapt.bodem.dtos.PositionDTO;
 
 @Entity
-@Table(name="Member")
+@Table(name="Player")
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode
-public class Member {
+public class Player {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,34 +47,34 @@ public class Member {
 	private String phone;
 	
 	@OneToOne(optional = true)
-	private Role role;
+	private Position position;
 
 	@ManyToOne
 	@JoinColumn(name="team_id", nullable=false)
 	private Team team;
 	
-	public Member(MemberDTO memberDTO, Role role) {
-		update(memberDTO, role);
+	public Player(PlayerDTO playerDTO, Position position) {
+		update(playerDTO, position);
 	}
 	
-	public void update(MemberDTO memberDTO, Role role) {
+	public void update(PlayerDTO memberDTO, Position position) {
 		this.id = memberDTO.getId();
 		this.firstName = memberDTO.getFirstName();
 		this.lastName = memberDTO.getLastName();
 		this.birthday = memberDTO.getBirthday();
 		this.email = memberDTO.getEmail();
 		this.phone = memberDTO.getPhone();
-		this.role = role;
+		this.position = position;
 	}
 	
 	
-	public MemberDTO createMemberDTO() {
-		RoleDTO roleDTO = null;
-		if (role!= null) {
-			roleDTO = role.createRoleDTO();
+	public PlayerDTO createPlayerDTO() {
+		PositionDTO positionDTO = null;
+		if (position!= null) {
+			positionDTO = position.createPositionDTO();
 		}
 		
-		return new MemberDTO(id, firstName, lastName, birthday, email, phone, roleDTO);
+		return new PlayerDTO(id, firstName, lastName, birthday, email, phone, positionDTO);
 	}
 
 	

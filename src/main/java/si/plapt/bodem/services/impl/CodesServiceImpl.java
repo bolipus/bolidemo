@@ -10,43 +10,43 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import si.plapt.bodem.entities.Role;
-import si.plapt.bodem.repositories.RoleRepository;
+import si.plapt.bodem.entities.Position;
+import si.plapt.bodem.repositories.PositionRepository;
 import si.plapt.bodem.services.CodesService;
 
 @Service
 public class CodesServiceImpl implements CodesService {
 
 	@Autowired
-	private RoleRepository roleRepository;
+	private PositionRepository positionRepository;
 
 	@Override
-	public List<Role> getAllRoles() {
-		return StreamSupport.stream(roleRepository.findAll().spliterator(), false).collect(Collectors.toList());
+	public List<Position> getAllPositions() {
+		return StreamSupport.stream(positionRepository.findAll().spliterator(), false).collect(Collectors.toList());
 	}
 
 	@Override
-	public List<Role> getAllRolesOrderByTitleDesc() {
-		List<Role> results = new ArrayList<>();
-		roleRepository.findAllRoleByOrderByTitleAsc().forEach(results::add);		
-		return results;
+	public List<Position> getAllPositionOrderByTitleDesc() {
+		List<Position> positions = new ArrayList<>();
+		positionRepository.findAllPositionByOrderByTitleAsc().forEach(positions::add);		
+		return positions;
 	}
 
 	@Override
-	public Optional<Role> getRole(Long id) {
-		return roleRepository.findById(id);
-	}
-
-	@Override
-	@Transactional
-	public Role saveRole(Role role) {
-		return roleRepository.save(role);
+	public Optional<Position> getPosition(Long id) {
+		return positionRepository.findById(id);
 	}
 
 	@Override
 	@Transactional
-	public void deleteRole(Long id) {	
-		roleRepository.deleteById(id);
+	public Position savePosition(Position role) {
+		return positionRepository.save(role);
+	}
+
+	@Override
+	@Transactional
+	public void deletePosition(Long id) {	
+		positionRepository.deleteById(id);
 	}
 
 }

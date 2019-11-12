@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import si.plapt.bodem.entities.Member;
+import si.plapt.bodem.entities.Player;
 import si.plapt.bodem.entities.Team;
-import si.plapt.bodem.repositories.MemberRepository;
+import si.plapt.bodem.repositories.PlayerRepository;
 import si.plapt.bodem.repositories.TeamRepository;
 import si.plapt.bodem.services.MainService;
 
@@ -18,40 +18,40 @@ import si.plapt.bodem.services.MainService;
 public class MainServiceImpl implements MainService {
 	
 	@Autowired
-	private MemberRepository memberRepository;
+	private PlayerRepository playerRepository;
 	
 	@Autowired
 	private TeamRepository teamRepository;
 
 	@Override
-	public List<Member> getAllMembers() {
-		List<Member> results = new ArrayList<>();
-		memberRepository.findAll().forEach(results::add);
-		return results;
+	public List<Player> getAllPlayers() {
+		List<Player> players = new ArrayList<>();
+		playerRepository.findAll().forEach(players::add);
+		return players;
 	}
 
 	@Override
-	public Optional<Member> getMember(Long id) {
-		return memberRepository.findById(id);
-	}
-
-	@Override
-	@Transactional
-	public Member saveMember(Member member) {
-		return memberRepository.save(member);
+	public Optional<Player> getPlayer(Long id) {
+		return playerRepository.findById(id);
 	}
 
 	@Override
 	@Transactional
-	public void deleteMember(Long id) {
-		memberRepository.deleteById(id);		
+	public Player savePlayer(Player member) {
+		return playerRepository.save(member);
+	}
+
+	@Override
+	@Transactional
+	public void deletePlayer(Long id) {
+		playerRepository.deleteById(id);		
 	}
 
 	@Override
 	public List<Team> getAllTeams() {
-		List<Team> results = new ArrayList<>();
-		teamRepository.findAll().forEach(results::add);
-		return results;
+		List<Team> teams = new ArrayList<>();
+		teamRepository.findAll().forEach(teams::add);
+		return teams;
 	}
 
 	@Override

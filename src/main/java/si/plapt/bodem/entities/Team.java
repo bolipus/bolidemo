@@ -35,7 +35,7 @@ public class Team {
 	private String description;
 	
 	@OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
-	private List<Member> members;
+	private List<Player> players;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Game> games;
@@ -50,14 +50,14 @@ public class Team {
 		description = teamDTO.getDescription();		
 	}
 	
-	public void addMember(Member member) {
+	public void addPlayer(Player member) {
 		member.setTeam(this);
-		members.add(member);
+		players.add(member);
 	}
 	
-	public void removeMember(Member member) {
+	public void removePlayer(Player member) {
 		member.setTeam(null);
-		members.remove(member);
+		players.remove(member);
 	}
 	
 	

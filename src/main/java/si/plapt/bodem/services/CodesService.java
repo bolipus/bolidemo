@@ -5,19 +5,19 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import si.plapt.bodem.entities.Role;
+import si.plapt.bodem.entities.Position;
 
 
 @Service
 public interface CodesService {
 	
-	List<Role> getAllRoles();
+	List<Position> getAllPositions();
 	
-	List<Role> getAllRolesOrderByTitleDesc();
+	List<Position> getAllPositionOrderByTitleDesc();
 	
-	Optional<Role> getRole(Long id);
+	Optional<Position> getPosition(Long id);
 	
-	Role saveRole(Role role);
+	Position savePosition(Position role);
 	
-	void deleteRole(Long id);
+	void deletePosition(Long id);
 }

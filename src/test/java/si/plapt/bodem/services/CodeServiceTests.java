@@ -16,8 +16,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import si.plapt.bodem.entities.Role;
-import si.plapt.bodem.repositories.RoleRepository;
+import si.plapt.bodem.entities.Position;
+import si.plapt.bodem.repositories.PositionRepository;
 
 
 @SpringBootTest
@@ -25,87 +25,87 @@ import si.plapt.bodem.repositories.RoleRepository;
 public class CodeServiceTests {
 	
 	@MockBean
-	private RoleRepository roleRepository;
+	private PositionRepository positionRepository;
 	
 	@Autowired
 	private CodesService codeService;
 	
 	
 	@Test
-	public void getAllRolesTest() {
-		Role role = new Role(1l,"Test","Test");
-		Role role2 = new Role(2l,"Test2","Test2");
+	public void getAllPositionsTest() {
+		Position position = new Position(1l,"Test","Test");
+		Position position2 = new Position(2l,"Test2","Test2");
 		
-		List<Role> roles = new ArrayList<>();
-		roles.add(role);
-		roles.add(role2);
+		List<Position> positions = new ArrayList<>();
+		positions.add(position);
+		positions.add(position2);
 		
-		when(roleRepository.findAll()).thenReturn(roles);
+		when(positionRepository.findAll()).thenReturn(positions);
 		
-		List<Role> actualRoles = codeService.getAllRoles();	
+		List<Position> actualPositions = codeService.getAllPositions();	
 		
-		assertTrue(actualRoles.size() ==  roles.size());
-		assertTrue(actualRoles.get(0).getId() ==  roles.get(0).getId());
+		assertTrue(actualPositions.size() ==  positions.size());
+		assertTrue(actualPositions.get(0).getId() ==  positions.get(0).getId());
 	}
 	
 	@Test
-	public void fetchRoleTest() {
-		Role role = new Role(1l,"Test","Test");
+	public void fetchPositionTest() {
+		Position position = new Position(1l,"Test","Test");
 		
-		when(roleRepository.findById(1L)).thenReturn(Optional.of(role));
+		when(positionRepository.findById(1L)).thenReturn(Optional.of(position));
 		
-		Optional<Role> actualRole = codeService.getRole(1l);
+		Optional<Position> actualPosition = codeService.getPosition(1l);
 		
-		assertTrue(actualRole.isPresent());
+		assertTrue(actualPosition.isPresent());
 		
-		assertTrue(role.getId() == actualRole.get().getId());
+		assertTrue(position.getId() == actualPosition.get().getId());
 		
-		assertEquals(role.getDescription(), actualRole.get().getDescription());
+		assertEquals(position.getDescription(), actualPosition.get().getDescription());
 	}
 
 	
 	
 	@Test
-	public void addAndUpdateRoleTest() {
-		Role role = new Role(1l,"Test","Test");
+	public void addAndUpdatePositionTest() {
+		Position position = new Position(1l,"Test","Test");
 		
-		Role savedRole = new Role(1l,"Test","Test");
+		Position savedPosition = new Position(1l,"Test","Test");
 		
-		Role updatedRole = new Role(1l,"Updated","Test");
+		Position updatedPosition = new Position(1l,"Updated","Test");
 		
-		when(roleRepository.save(role))
-			.thenReturn(savedRole)
-			.thenReturn(updatedRole);
+		when(positionRepository.save(position))
+			.thenReturn(savedPosition)
+			.thenReturn(updatedPosition);
 		
 		
-		savedRole = codeService.saveRole(role);
+		savedPosition = codeService.savePosition(position);
 		
-		assertEquals(role.getTitle(), savedRole.getTitle());
-		assertEquals(role.getDescription(), savedRole.getDescription());
+		assertEquals(position.getTitle(), savedPosition.getTitle());
+		assertEquals(position.getDescription(), savedPosition.getDescription());
 		
-		savedRole.setTitle("Updated");
+		savedPosition.setTitle("Updated");
 		
-		updatedRole = codeService.saveRole(role);
+		updatedPosition = codeService.savePosition(position);
 		
-		assertEquals(savedRole.getId(), updatedRole.getId());
-		assertEquals(savedRole.getTitle(), updatedRole.getTitle());
-		assertNotEquals(role.getTitle(), updatedRole.getTitle());
+		assertEquals(savedPosition.getId(), updatedPosition.getId());
+		assertEquals(savedPosition.getTitle(), updatedPosition.getTitle());
+		assertNotEquals(position.getTitle(), updatedPosition.getTitle());
 	}
 	
 	@Test
-	public void deleteRoleTest() {
+	public void deletePositionTest() {
 		
-		Role role = new Role(1l,"Test","Test");
+		Position position = new Position(1l,"Test","Test");
 		
-		when(roleRepository.findById(1L)).thenReturn(Optional.of(role)).thenReturn(Optional.empty());
+		when(positionRepository.findById(1L)).thenReturn(Optional.of(position)).thenReturn(Optional.empty());
 		
-		Optional<Role> actualRole = codeService.getRole(1l);
+		Optional<Position> actualPosition = codeService.getPosition(1l);
 		
-		assertTrue(actualRole.isPresent());
+		assertTrue(actualPosition.isPresent());
 	
-		codeService.deleteRole(role.getId());
+		codeService.deletePosition(position.getId());
 		
-		Optional<Role> deleted = codeService.getRole(role.getId());
+		Optional<Position> deleted = codeService.getPosition(position.getId());
 		
 		assertTrue(!deleted.isPresent());
 		

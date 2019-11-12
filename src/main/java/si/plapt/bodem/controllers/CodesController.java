@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import si.plapt.bodem.dtos.RoleDTO;
-import si.plapt.bodem.entities.Role;
+import si.plapt.bodem.dtos.PositionDTO;
+import si.plapt.bodem.entities.Position;
 import si.plapt.bodem.services.CodesService;
 
 @RestController
@@ -29,63 +29,63 @@ import si.plapt.bodem.services.CodesService;
 @RequestMapping("api/v1/codes")
 public class CodesController {
 
-	private static final String ROLE_WITH_ID_S_NOT_FOUND = "Role with id %s not found";
+	private static final String POSITION_WITH_ID_S_NOT_FOUND = "Position with id %s not found";
 	
 	@Autowired
 	CodesService codeService;
 
-	@GetMapping("/roles")
-	public ResponseEntity<List<RoleDTO>> getAllRoles() {
+	@GetMapping("/positions")
+	public ResponseEntity<List<PositionDTO>> getAllPosition() {
 
-		List<RoleDTO> rolesDTO = codeService.getAllRoles().stream().map(Role::createRoleDTO)
+		List<PositionDTO> rolesDTO = codeService.getAllPositions().stream().map(Position::createPositionDTO)
 				.collect(Collectors.toList());
 
 		return ResponseEntity.ok(rolesDTO);
 	}
 
-	@GetMapping("/roles/{id}")
-	public ResponseEntity<RoleDTO> getRole(@PathVariable("id") Long id) {
-		Optional<Role> role = codeService.getRole(id);
+	@GetMapping("/positions/{id}")
+	public ResponseEntity<PositionDTO> getPosition(@PathVariable("id") Long id) {
+		Optional<Position> position = codeService.getPosition(id);
 
-		if (role.isPresent()) {
-			return ResponseEntity.ok(role.get().createRoleDTO());
+		if (position.isPresent()) {
+			return ResponseEntity.ok(position.get().createPositionDTO());
 		} else {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format(ROLE_WITH_ID_S_NOT_FOUND, id));
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format(POSITION_WITH_ID_S_NOT_FOUND, id));
 		}
 	}
 	
-	@PostMapping("/roles")
-	public ResponseEntity<RoleDTO> createRole(@RequestBody RoleDTO roleDTO) {
-		Role role = new Role(roleDTO);
-		Role savedRole =  codeService.saveRole(role);
+	@PostMapping("/positions")
+	public ResponseEntity<PositionDTO> createPosition(@RequestBody PositionDTO positionDTO) {
+		Position position = new Position(positionDTO);
+		Position savedPosition =  codeService.savePosition(position);
 		
-		return ResponseEntity.ok(savedRole.createRoleDTO());
+		return ResponseEntity.ok(savedPosition.createPositionDTO());
 	}
 	
-	@PostMapping("/roles/{id}")
-	public ResponseEntity<RoleDTO> updateRole(@PathVariable("id") Long id, @RequestBody RoleDTO roleDTO) {
-		Optional<Role> role = codeService.getRole(id);
+	@PostMapping("/positions/{id}")
+	public ResponseEntity<PositionDTO> updatePosition(@PathVariable("id") Long id, @RequestBody PositionDTO positionDTO) {
+		Optional<Position> position = codeService.getPosition(id);
 		
-		if (!role.isPresent()) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format(ROLE_WITH_ID_S_NOT_FOUND, id));
+		if (!position.isPresent()) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format(POSITION_WITH_ID_S_NOT_FOUND, id));
 		}
 		
-		role.get().update(roleDTO);
+		position.get().update(positionDTO);
 		
-		Role savedRole = codeService.saveRole(role.get());
+		Position savedPosition = codeService.savePosition(position.get());
 		
-		return ResponseEntity.ok(savedRole.createRoleDTO());
+		return ResponseEntity.ok(savedPosition.createPositionDTO());
 	}
 	
-	@DeleteMapping("/roles/{id}")
-	public ResponseEntity<Void> deleteRole(@PathVariable("id") Long id) {
-		Optional<Role> role = codeService.getRole(id);
+	@DeleteMapping("/positions/{id}")
+	public ResponseEntity<Void> deletePosition(@PathVariable("id") Long id) {
+		Optional<Position> position = codeService.getPosition(id);
 		
-		if (!role.isPresent()) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format(ROLE_WITH_ID_S_NOT_FOUND, id));
+		if (!position.isPresent()) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format(POSITION_WITH_ID_S_NOT_FOUND, id));
 		}
 		
-		codeService.deleteRole(id);
+		codeService.deletePosition(id);
 		
 		return ResponseEntity.ok().build();
 	}

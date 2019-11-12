@@ -13,9 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import si.plapt.bodem.entities.Member;
-import si.plapt.bodem.repositories.MemberRepository;
-import si.plapt.bodem.repositories.RoleRepository;
+import si.plapt.bodem.entities.Player;
+import si.plapt.bodem.repositories.PlayerRepository;
 import si.plapt.bodem.repositories.TeamRepository;
 
 @SpringBootTest
@@ -23,7 +22,7 @@ import si.plapt.bodem.repositories.TeamRepository;
 public class MainServiceTests {
 	
 	@MockBean
-	private MemberRepository memberRepository;
+	private PlayerRepository playerRepository;
 	
 	@MockBean
 	private TeamRepository teamRepository;
@@ -32,19 +31,19 @@ public class MainServiceTests {
 	private MainService mainService;
 	
 	@Test
-	public void getAllMembersTest() {
-		Member member1 = new Member();
-		member1.setId(1l);
-		member1.setFirstName("Janez");
-		member1.setLastName("Kranjski");
+	public void getAllPlayersTest() {
+		Player player = new Player();
+		player.setId(1l);
+		player.setFirstName("Janez");
+		player.setLastName("Kranjski");
 		
-		List<Member> members = new ArrayList<>();
-		members.add(member1);
+		List<Player> players = new ArrayList<>();
+		players.add(player);
 		
-		when(memberRepository.findAll()).thenReturn(members);
+		when(playerRepository.findAll()).thenReturn(players);
 		
-		List<Member> actualMembers = mainService.getAllMembers();
+		List<Player> actualPlayers = mainService.getAllPlayers();
 		
-		assertTrue(actualMembers.size() ==  members.size());		
+		assertTrue(actualPlayers.size() ==  players.size());		
 	}
 }

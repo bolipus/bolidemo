@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import si.plapt.bodem.dtos.MemberDTO;
+import si.plapt.bodem.dtos.PlayerDTO;
 import si.plapt.bodem.dtos.TeamDTO;
-import si.plapt.bodem.entities.Member;
-import si.plapt.bodem.entities.Role;
+import si.plapt.bodem.entities.Player;
+import si.plapt.bodem.entities.Position;
 import si.plapt.bodem.entities.Team;
 import si.plapt.bodem.services.CodesService;
 import si.plapt.bodem.services.MainService;
@@ -35,7 +35,7 @@ import si.plapt.bodem.services.MainService;
 @RequestMapping("api/v1")
 public class MainController {
 	
-	private static final String MEMBER_WITH_ID_S_NOT_FOUND = "Member with id %s not found";
+	private static final String PLAYER_WITH_ID_S_NOT_FOUND = "Player with id %s not found";
 	
 	private static final String TEAM_WITH_ID_S_NOT_FOUND = "Team with id %s not found";
 	
@@ -46,63 +46,63 @@ public class MainController {
 	@Autowired
 	CodesService codeService;
 	
-	@GetMapping("/members")
-	public ResponseEntity<List<MemberDTO>> getAllMembers() {
+	@GetMapping("/players")
+	public ResponseEntity<List<PlayerDTO>> getAllPlayers() {
 
-		List<MemberDTO> membersDTO = mainService.getAllMembers().stream().map(Member::createMemberDTO)
+		List<PlayerDTO> playersDTO = mainService.getAllPlayers().stream().map(Player::createPlayerDTO)
 				.collect(Collectors.toList());
 
-		return ResponseEntity.ok(membersDTO);
+		return ResponseEntity.ok(playersDTO);
 	}
 
-	@GetMapping("/members/{id}")
-	public ResponseEntity<MemberDTO> getMember(@PathVariable("id") Long id) {
-		Optional<Member> member = mainService.getMember(id);
+	@GetMapping("/players/{id}")
+	public ResponseEntity<PlayerDTO> getPlayer(@PathVariable("id") Long id) {
+		Optional<Player> player = mainService.getPlayer(id);
 
-		if (member.isPresent()) {
-			return ResponseEntity.ok(member.get().createMemberDTO());
+		if (player.isPresent()) {
+			return ResponseEntity.ok(player.get().createPlayerDTO());
 		} else {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format(MEMBER_WITH_ID_S_NOT_FOUND, id));
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format(PLAYER_WITH_ID_S_NOT_FOUND, id));
 		}
 	}
 	
-	@PostMapping("/members")
-	public ResponseEntity<MemberDTO> createMember(@RequestBody MemberDTO memberDTO) {
+	@PostMapping("/players")
+	public ResponseEntity<PlayerDTO> createPlayer(@RequestBody PlayerDTO playerDTO) {
 		
-		Optional<Role> role = codeService.getRole(memberDTO.getRole().getId());
+		Optional<Position> role = codeService.getPosition(playerDTO.getPosition().getId());
 		
-		Member member = new Member(memberDTO, role.orElseGet(null));
-		Member savedMember =  mainService.saveMember(member);
+		Player player = new Player(playerDTO, role.orElseGet(null));
+		Player savedPlayer =  mainService.savePlayer(player);
 		
-		return ResponseEntity.ok(savedMember.createMemberDTO());
+		return ResponseEntity.ok(savedPlayer.createPlayerDTO());
 	}
 	
-	@PostMapping("/members/{id}")
-	public ResponseEntity<MemberDTO> updateMember(@PathVariable("id") Long id, @RequestBody MemberDTO memberDTO) {
-		Optional<Member> member = mainService.getMember(id);
+	@PostMapping("/players/{id}")
+	public ResponseEntity<PlayerDTO> updatePlayer(@PathVariable("id") Long id, @RequestBody PlayerDTO playerDTO) {
+		Optional<Player> player = mainService.getPlayer(id);
 		
-		if (!member.isPresent()) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format(MEMBER_WITH_ID_S_NOT_FOUND, id));
+		if (!player.isPresent()) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format(PLAYER_WITH_ID_S_NOT_FOUND, id));
 		}
 		
-		Optional<Role> role = codeService.getRole(memberDTO.getRole().getId());
+		Optional<Position> role = codeService.getPosition(playerDTO.getPosition().getId());
 		
-		member.get().update(memberDTO, role.get());
+		player.get().update(playerDTO, role.get());
 		
-		Member savedMember = mainService.saveMember(member.get());
+		Player savedPlayer = mainService.savePlayer(player.get());
 		
-		return ResponseEntity.ok(savedMember.createMemberDTO());
+		return ResponseEntity.ok(savedPlayer.createPlayerDTO());
 	}
 	
-	@DeleteMapping("/members/{id}")
-	public ResponseEntity<Void> deleteMember(@PathVariable("id") Long id) {
-		Optional<Member> member = mainService.getMember(id);
+	@DeleteMapping("/players/{id}")
+	public ResponseEntity<Void> deletePlayer(@PathVariable("id") Long id) {
+		Optional<Player> player = mainService.getPlayer(id);
 		
-		if (!member.isPresent()) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format(MEMBER_WITH_ID_S_NOT_FOUND, id));
+		if (!player.isPresent()) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format(PLAYER_WITH_ID_S_NOT_FOUND, id));
 		}
 		
-		mainService.deleteMember(id);
+		mainService.deletePlayer(id);
 		
 		return ResponseEntity.ok().build();
 	}
@@ -165,31 +165,31 @@ public class MainController {
 		return ResponseEntity.ok().build();
 	}
 	
-	@GetMapping("/teams/{id}/members")
-	public ResponseEntity<List<MemberDTO>> getTeamMembers(@PathVariable("id") Long id) {
+	@GetMapping("/teams/{id}/players")
+	public ResponseEntity<List<PlayerDTO>> getTeamPlayers(@PathVariable("id") Long id) {
 		Optional<Team> team = mainService.getTeam(id);
 
 		if (team.isPresent()) {
 			
-			List<MemberDTO> members = team.get().getMembers().stream().map(Member::createMemberDTO).collect(Collectors.toList());
+			List<PlayerDTO> players = team.get().getPlayers().stream().map(Player::createPlayerDTO).collect(Collectors.toList());
 			
-			return ResponseEntity.ok(members);
+			return ResponseEntity.ok(players);
 		} else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format(TEAM_WITH_ID_S_NOT_FOUND, id));
 		}
 	}
 	
 	
-	@PostMapping("/teams/{id}/members")
-	public ResponseEntity<Void> addMemberToTeam(@PathVariable("id") Long id, @RequestParam("memberId") Long memberId){
+	@PostMapping("/teams/{id}/players")
+	public ResponseEntity<Void> addPlayerToTeam(@PathVariable("id") Long id, @RequestParam("playerId") Long playerId){
 		Optional<Team> team = mainService.getTeam(id);
 
 		if (team.isPresent()) {
 			
-			Optional<Member> member = mainService.getMember(memberId);
+			Optional<Player> player = mainService.getPlayer(playerId);
 			
-			if (member.isPresent()) {
-				team.get().addMember(member.get());
+			if (player.isPresent()) {
+				team.get().addPlayer(player.get());
 				mainService.saveTeam(team.get());
 			}
 			
@@ -199,16 +199,16 @@ public class MainController {
 		}
 	}
 	
-	@DeleteMapping("/teams/{id}/members/{memberId}")
-	public ResponseEntity<Void> removeMemberFromTeam(@PathVariable("id") Long id, @PathVariable("memberId") Long memberId){
+	@DeleteMapping("/teams/{id}/players/{playerId}")
+	public ResponseEntity<Void> removePlayerFromTeam(@PathVariable("id") Long id, @PathVariable("playerId") Long playerId){
 		Optional<Team> team = mainService.getTeam(id);
 
 		if (team.isPresent()) {
 			
-			Optional<Member> member = mainService.getMember(memberId);
+			Optional<Player> player = mainService.getPlayer(playerId);
 			
-			if (member.isPresent()) {
-				team.get().removeMember(member.get());
+			if (player.isPresent()) {
+				team.get().removePlayer(player.get());
 				mainService.saveTeam(team.get());
 			}
 			

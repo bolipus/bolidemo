@@ -11,15 +11,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import si.plapt.bodem.dtos.RoleDTO;
+import si.plapt.bodem.dtos.PositionDTO;
 
 @Entity
-@Table(name="Role")
+@Table(name="Position")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class Role {
+public class Position {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,18 +31,18 @@ public class Role {
 	@Column(length = 255)
 	private String description;
 	
-	public Role(RoleDTO roleDTO) {
-		update(roleDTO);
+	public Position(PositionDTO positionDTO) {
+		update(positionDTO);
 	}
 	
-	public void update(RoleDTO roleDTO) {
-		this.id = roleDTO.getId();
-		this.title = roleDTO.getTitle();
-		this.description = roleDTO.getDescription(); 
+	public void update(PositionDTO postionDTO) {
+		this.id = postionDTO.getId();
+		this.title = postionDTO.getTitle();
+		this.description = postionDTO.getDescription(); 
 	}
 	
-	public RoleDTO createRoleDTO() {
-		return new RoleDTO(id, title, description);
+	public PositionDTO createPositionDTO() {
+		return new PositionDTO(id, title, description);
 	}
 	
 }

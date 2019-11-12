@@ -10,7 +10,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class MemberDTO {
+public class PlayerDTO {
 	private Long id;
 	
 	private String firstName;
@@ -24,6 +24,6 @@ public class MemberDTO {
 	
 	private String phone;
 	
-	private RoleDTO role;
+	private PositionDTO position;
 
 }

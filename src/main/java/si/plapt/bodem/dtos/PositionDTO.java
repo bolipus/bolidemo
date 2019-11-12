@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class RoleDTO {
+public class PositionDTO {
 	
 	private Long id;
 	
