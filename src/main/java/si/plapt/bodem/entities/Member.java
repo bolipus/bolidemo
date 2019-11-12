@@ -15,6 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import si.plapt.bodem.dtos.MemberDTO;
 import si.plapt.bodem.dtos.RoleDTO;
@@ -23,6 +24,7 @@ import si.plapt.bodem.dtos.RoleDTO;
 @Table(name="Member")
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode
 public class Member {
 
 	@Id
@@ -65,18 +67,6 @@ public class Member {
 		this.role = role;
 	}
 	
-	
-	@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Member)) return false;
-        return id != null && id.equals(((Member) o).getId());
-    }
-	
-	@Override
-	public int hashCode() {
-		return super.hashCode();
-	}
 	
 	public MemberDTO createMemberDTO() {
 		RoleDTO roleDTO = null;

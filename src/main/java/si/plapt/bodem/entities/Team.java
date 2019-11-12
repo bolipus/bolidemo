@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import si.plapt.bodem.dtos.TeamDTO;
 
@@ -20,6 +21,7 @@ import si.plapt.bodem.dtos.TeamDTO;
 @Table(name="Team")
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode
 public class Team {
 	
 	@Id
@@ -58,17 +60,7 @@ public class Team {
 		members.remove(member);
 	}
 	
-	@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Team)) return false;
-        return id != null && id.equals(((Team) o).getId());
-    }
 	
-	@Override
-	public int hashCode() {
-		return super.hashCode();
-	}
 	
 	public TeamDTO createTeamDTO() {
 		return new TeamDTO(id, title, description);

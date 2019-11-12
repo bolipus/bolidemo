@@ -15,6 +15,7 @@ import javax.persistence.TemporalType;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import si.plapt.bodem.dtos.GameDTO;
 import si.plapt.bodem.dtos.TeamDTO;
@@ -24,6 +25,7 @@ import si.plapt.bodem.dtos.TeamDTO;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class Game {
 	
 	@Id
@@ -58,17 +60,6 @@ public class Game {
 		this.guestTeam = guestTeam;
 	}
 	
-	@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Game)) return false;
-        return id != null && id.equals(((Game) o).getId());
-    }
-	
-	@Override
-	public int hashCode() {
-		return super.hashCode();
-	}
 	
 	public GameDTO createGameDTO() {
 		

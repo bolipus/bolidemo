@@ -9,6 +9,7 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import si.plapt.bodem.dtos.RoleDTO;
 
@@ -17,6 +18,7 @@ import si.plapt.bodem.dtos.RoleDTO;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class Role {
 	
 	@Id
@@ -37,18 +39,6 @@ public class Role {
 		this.id = roleDTO.getId();
 		this.title = roleDTO.getTitle();
 		this.description = roleDTO.getDescription(); 
-	}
-	
-	@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Role)) return false;
-        return id != null && id.equals(((Role) o).getId());
-    }
-	
-	@Override
-	public int hashCode() {
-		return super.hashCode();
 	}
 	
 	public RoleDTO createRoleDTO() {
