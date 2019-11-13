@@ -15,6 +15,8 @@ public interface UserService {
 	
 	Optional<User> getUser(Long id);
 	
+	Optional<User> getByUsername(String username);
+	
 	User saveUser(User user);
 	
 	void deleteUser(Long id);

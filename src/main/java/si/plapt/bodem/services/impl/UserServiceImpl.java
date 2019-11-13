@@ -33,6 +33,11 @@ public class UserServiceImpl implements UserService{
 	public Optional<User> getUser(Long id) {
 		return userRepository.findById(id);
 	}
+	
+	@Override
+	public Optional<User> getByUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
 
 	@Override
 	public User saveUser(User user) {
@@ -65,5 +70,7 @@ public class UserServiceImpl implements UserService{
 	public void deleteRole(Long id) {
 		roleRepository.deleteById(id);		
 	}
+
+	
 
 }

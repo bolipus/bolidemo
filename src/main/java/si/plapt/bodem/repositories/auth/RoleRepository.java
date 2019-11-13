@@ -8,4 +8,5 @@ import si.plapt.bodem.entities.auth.Role;
 @Repository
 public interface RoleRepository extends CrudRepository<Role, Long> {
 
+	
 }
