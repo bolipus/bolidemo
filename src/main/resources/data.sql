@@ -1,4 +1,9 @@
 
+INSERT INTO public."xuser"
+(id, username, password)
+VALUES (1, 'admin', '$2a$10$eMLmwZ5l7l94XC3XKB36huzccXNPcKCHrgyn4RSaTQ5AJZ4uA.oU6');
+
+
 --TEAMS
 INSERT INTO public."team"
 (id, description, title)

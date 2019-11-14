@@ -7,6 +7,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,7 +19,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="XUser")
+@Table(name="xuser")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,7 +32,11 @@ public class User {
 	private String username;
 
 	private String password;
-	
-	@ManyToMany(fetch = FetchType.LAZY)
+		
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "xuser_xrole",
+    	joinColumns = @JoinColumn(name = "user_id"),
+    	inverseJoinColumns = @JoinColumn(name = "role_id")
+	)
 	List<Role> roles;
 }

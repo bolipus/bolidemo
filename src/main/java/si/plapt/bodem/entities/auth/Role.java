@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="XRole")
+@Table(name="xrole")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
