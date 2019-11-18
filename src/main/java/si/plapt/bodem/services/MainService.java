@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import si.plapt.bodem.entities.Player;
+import si.plapt.bodem.entities.Position;
 import si.plapt.bodem.entities.Team;
 
 @Service
@@ -28,9 +29,9 @@ public interface MainService {
 	
 	void deleteTeam(Long id);
 	
+	List<Player> getAllPlayersOrderByBirthDay();
 	
-	
-	
+	List<Player> getAllPlayersByPosition(Long positionId) throws AppException;
 	
 	
 }

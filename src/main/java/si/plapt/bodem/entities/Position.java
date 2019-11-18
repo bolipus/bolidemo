@@ -26,7 +26,7 @@ public class Position {
 	private Long id;
 	
 	@Column(length = 100)
-	private String title;
+	private String name;
 	
 	@Column(length = 255)
 	private String description;
@@ -35,14 +35,14 @@ public class Position {
 		update(positionDTO);
 	}
 	
-	public void update(PositionDTO postionDTO) {
-		this.id = postionDTO.getId();
-		this.title = postionDTO.getTitle();
-		this.description = postionDTO.getDescription(); 
+	public void update(PositionDTO positionDTO) {
+		this.id = positionDTO.getId();
+		this.name = positionDTO.getName();
+		this.description = positionDTO.getDescription(); 
 	}
 	
 	public PositionDTO createPositionDTO() {
-		return new PositionDTO(id, title, description);
+		return new PositionDTO(id, name, description);
 	}
 	
 }

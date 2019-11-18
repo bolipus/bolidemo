@@ -23,6 +23,7 @@ import si.plapt.bodem.dtos.TeamDTO;
 import si.plapt.bodem.entities.Player;
 import si.plapt.bodem.entities.Position;
 import si.plapt.bodem.entities.Team;
+import si.plapt.bodem.services.AppException;
 import si.plapt.bodem.services.CodesService;
 import si.plapt.bodem.services.MainService;
 
@@ -54,6 +55,30 @@ public class MainController {
 
 		return ResponseEntity.ok(playersDTO);
 	}
+	
+	@GetMapping("/players/birthday")
+	public ResponseEntity<List<PlayerDTO>> getAllPlayersOrderByBirthday() {
+
+		List<PlayerDTO> playersDTO = mainService.getAllPlayersOrderByBirthDay().stream().map(Player::createPlayerDTO)
+				.collect(Collectors.toList());
+
+		return ResponseEntity.ok(playersDTO);
+	}
+	
+	@GetMapping("/players/position/{positionId}")
+	public ResponseEntity<List<PlayerDTO>> getAllPlayersByPosition(@PathVariable("positionId") Long positionId) {
+
+		List<PlayerDTO> playersDTO;
+		try {
+			playersDTO = mainService.getAllPlayersByPosition(positionId).stream().map(Player::createPlayerDTO)
+					.collect(Collectors.toList());
+		} catch (AppException e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+
+		return ResponseEntity.ok(playersDTO);
+	}
+
 
 	@GetMapping("/players/{id}")
 	public ResponseEntity<PlayerDTO> getPlayer(@PathVariable("id") Long id) {
@@ -76,6 +101,8 @@ public class MainController {
 		
 		return ResponseEntity.ok(savedPlayer.createPlayerDTO());
 	}
+	
+	
 	
 	@PostMapping("/players/{id}")
 	public ResponseEntity<PlayerDTO> updatePlayer(@PathVariable("id") Long id, @RequestBody PlayerDTO playerDTO) {

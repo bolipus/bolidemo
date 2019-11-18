@@ -80,16 +80,16 @@ public class CodeServiceTests {
 		
 		savedPosition = codeService.savePosition(position);
 		
-		assertEquals(position.getTitle(), savedPosition.getTitle());
+		assertEquals(position.getName(), savedPosition.getName());
 		assertEquals(position.getDescription(), savedPosition.getDescription());
 		
-		savedPosition.setTitle("Updated");
+		savedPosition.setName("Updated");
 		
 		updatedPosition = codeService.savePosition(position);
 		
 		assertEquals(savedPosition.getId(), updatedPosition.getId());
-		assertEquals(savedPosition.getTitle(), updatedPosition.getTitle());
-		assertNotEquals(position.getTitle(), updatedPosition.getTitle());
+		assertEquals(savedPosition.getName(), updatedPosition.getName());
+		assertNotEquals(position.getName(), updatedPosition.getName());
 	}
 	
 	@Test
