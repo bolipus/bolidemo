@@ -78,7 +78,7 @@ public class MainServiceImpl implements MainService {
 
 	@Override
 	public List<Player> getAllPlayersOrderByBirthDay() {
-		return playerRepository.findlPlayersByOrderByBirthdayAsc();
+		return playerRepository.findAllPlayersByOrderByBirthdayAsc();
 	}
 
 	@Override

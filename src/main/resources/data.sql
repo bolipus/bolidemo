@@ -6,9 +6,9 @@ INSERT INTO public."xuser" (id, username, password) VALUES
 (4,'demo2','$2a$10$E/ZT787UbiEbOBhhidbskeWEjAjiT5FnGlz8pvJXtNwZwli3o42V6');
 
 INSERT INTO public."xrole" (id, name, description) VALUES 
-(1, 'admin', 'Administrator'),
-(2, 'manager', 'Manager'),
-(3, 'member', 'Member');
+(1, 'ROLE_ADMIN', 'Admin'),
+(2, 'ROLE_MANAGE', 'Manager'),
+(3, 'ROLE_USER', 'User');
 
 INSERT INTO public."xuser_xrole" (user_id, role_id) VALUES
 (1,1),
@@ -17,6 +17,8 @@ INSERT INTO public."xuser_xrole" (user_id, role_id) VALUES
 (2,2),
 (3,3),
 (4,3);
+--DELETE FROM public.
+
 
 --TEAMS
 INSERT INTO public."team" (id, description, title) VALUES
@@ -24,10 +26,11 @@ INSERT INTO public."team" (id, description, title) VALUES
 (2,'Mura description', 'NK Mura'),
 (3,'Celje description', 'NK Celje'),
 (4,'Ljubljana description', 'NK Olimpija'),
-(5,'Aluminij description', 'NK Aluminij');
+(5,'Aluminij description', 'NK Aluminij'),
+(6,'Domžale description', 'NK Domžale');
 
 
-INSERT INTO public.positions (id, name, description) VALUES
+INSERT INTO public."position" (id, name, description) VALUES
 (1,'Goalkeeper', 'Goalkeeper'),
 (2,'Defender','Defender'),
 (3,'Centre-back','Centre-back'),
@@ -60,7 +63,10 @@ INSERT INTO public."player" (id, birthday, email, first_name, last_name, phone, 
 (13, '1983-9-18', 'boris.močvirnik@test.si', 'Boris', 'Močvirnik', '22-22-1234',10, 4),
 (14, '1995-6-25', 'milan.kider@test.si', 'Milan', 'Kider', '00-00-0000', 1, 5),
 (15, '1988-8-5', 'marko.strmek@test.si', 'Marko', 'Strmek', '22-22-1234',4,5),
-(16, '1987-6-24', 'slavko.morski@test.si', 'Slavko', 'Morski', '22-22-1234',14, 5);
+(16, '1987-6-24', 'slavko.morski@test.si', 'Slavko', 'Morski', '22-22-1234',14, 5),
+(17, '1994-3-15', 'milan.domzal@test.si', 'Milan', 'Domzal', '00-00-0000',1,6),
+(18, '1987-9-29', 'jaka.jazbec@test.si', 'Jaka', 'Jazbec', '22-22-1234',6,6),
+(19, '1984-8-24', 'tilen.kos@test.si', 'Tilen', 'Kos', '22-22-1234',13,6);
 
 
 

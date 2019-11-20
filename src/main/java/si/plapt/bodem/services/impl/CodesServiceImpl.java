@@ -26,9 +26,9 @@ public class CodesServiceImpl implements CodesService {
 	}
 
 	@Override
-	public List<Position> getAllPositionOrderByTitleDesc() {
+	public List<Position> getAllPositionOrderByNameDesc() {
 		List<Position> positions = new ArrayList<>();
-		positionRepository.findAllPositionByOrderByTitleAsc().forEach(positions::add);		
+		positionRepository.findAllPositionByOrderByNameAsc().forEach(positions::add);		
 		return positions;
 	}
 

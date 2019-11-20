@@ -2,7 +2,6 @@ package si.plapt.bodem.entities;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,10 +33,10 @@ public class Team {
 	@Column(length = 255)
 	private String description;
 	
-	@OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
 	private List<Player> players;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
 	private List<Game> games;
 	
 	public Team(TeamDTO teamDTO) {
@@ -50,16 +49,16 @@ public class Team {
 		description = teamDTO.getDescription();		
 	}
 	
-	public void addPlayer(Player member) {
-		member.setTeam(this);
-		players.add(member);
+	public void addPlayer(Player player) {
+		player.setTeam(this);
+		players.add(player);
 	}
 	
-	public void removePlayer(Player member) {
-		member.setTeam(null);
-		players.remove(member);
-	}
 	
+	public void removePlayer(Player player) {
+		player.setTeam(null);
+		players.remove(player);
+	}
 	
 	
 	public TeamDTO createTeamDTO() {

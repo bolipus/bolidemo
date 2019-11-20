@@ -22,12 +22,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Autowired
 	UserService userService;
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		System.out.println(new BCryptPasswordEncoder().encode("admin"));
 		System.out.println(new BCryptPasswordEncoder().encode("manager"));
 		System.out.println(new BCryptPasswordEncoder().encode("demo"));
 		System.out.println(new BCryptPasswordEncoder().encode("demo2"));
-	}
+	}*/
 	
 	
 

@@ -13,7 +13,7 @@ public interface CodesService {
 	
 	List<Position> getAllPositions();
 	
-	List<Position> getAllPositionOrderByTitleDesc();
+	List<Position> getAllPositionOrderByNameDesc();
 	
 	Optional<Position> getPosition(Long id);
 	

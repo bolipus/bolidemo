@@ -8,5 +8,5 @@ import si.plapt.bodem.entities.Position;
 @Repository
 public interface PositionRepository extends CrudRepository<Position, Long> {
 
-	Iterable<Position> findAllPositionByOrderByTitleAsc();
+	Iterable<Position> findAllPositionByOrderByNameAsc();
 }

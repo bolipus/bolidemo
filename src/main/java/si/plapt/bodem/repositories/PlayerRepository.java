@@ -10,6 +10,6 @@ import si.plapt.bodem.entities.Position;
 
 @Repository
 public interface PlayerRepository extends CrudRepository<Player, Long> {
-	 List<Player> findlPlayersByOrderByBirthdayAsc();
+	 List<Player> findAllPlayersByOrderByBirthdayAsc();
 	 List<Player> findAllPlayerByPosition(Position position);	 
 }
