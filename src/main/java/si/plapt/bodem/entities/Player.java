@@ -17,6 +17,7 @@ import javax.persistence.TemporalType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import si.plapt.bodem.dtos.PlayerDTO;
 import si.plapt.bodem.dtos.PositionDTO;
 
@@ -25,6 +26,7 @@ import si.plapt.bodem.dtos.PositionDTO;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode
+@ToString(exclude= {"team"})
 public class Player {
 
 	@Id

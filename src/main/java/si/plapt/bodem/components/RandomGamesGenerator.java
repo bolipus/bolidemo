@@ -60,35 +60,32 @@ public class RandomGamesGenerator implements ApplicationRunner {
 				
 								
 				Game game1 = new Game(0l, team1, team2, rand.nextInt(6), rand.nextInt(6),date1);
-				game1.getHomeTeam().getGames().add(game1);
-				game1.getGuestTeam().getGames().add(game1);
 				
-				Game game2 = new Game(0l, team2, team1, rand.nextInt(6), rand.nextInt(6),date2);
+				Game savedGame = gameService.saveGame(game1);
+				
+				System.out.println(savedGame.getId() + ":" + savedGame.getHomeTeam().getTitle() + ":" + savedGame.getGuestTeam().getTitle());
+				
+	//			Game game2 = new Game(0l, team2, team1, rand.nextInt(6), rand.nextInt(6),date2);
+				
+//				gameService.saveGame(game2);
 				
 				
-				firstHalf.add(game1);
+				//firstHalf.add(game1);
 				
-				secondHalf.add(game2);
+				//secondHalf.add(game2);
 			}
 		}
 		
 		/*firstHalf.forEach(game -> {
 			
 			Game savedGame = gameService.saveGame(game);
-			mainService.saveTeam(savedGame.getHomeTeam());
-			mainService.saveTeam(savedGame.getGuestTeam());
 			
-			System.out.println(savedGame.getHomeTeam().getGames().size());
-		});
+			//mainService.saveTeam(savedGame.getHomeTeam());
+			//mainService.saveTeam(savedGame.getGuestTeam());
+			
+			System.out.println(savedGame.getHomeTeam().getHomeGames());
+		});*/
 		
-		 Optional<Team> team1 = mainService.getTeam(1l);
-		 
-		 if (team1.isPresent()) {
-			 List<Game> games = team1.get().getGames();
-			 for (Game tg : games) {
-				System.out.println(tg.getDate());
-			}
-		 }*/
 		
 		
 

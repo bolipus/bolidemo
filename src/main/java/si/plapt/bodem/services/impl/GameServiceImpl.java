@@ -45,9 +45,7 @@ public class GameServiceImpl implements GameService {
 
 	@Override
 	@Transactional
-	public Game saveGame(Game game) {
-		game.getHomeTeam().getGames().add(game);
-		game.getGuestTeam().getGames().add(game);		
+	public Game saveGame(Game game) {	
 		return gameRepository.save(game);
 	}
 

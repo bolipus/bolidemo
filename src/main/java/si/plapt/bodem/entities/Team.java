@@ -1,7 +1,9 @@
 package si.plapt.bodem.entities;
 
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,16 +13,21 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import si.plapt.bodem.dtos.TeamDTO;
 
 @Entity
 @Table(name="Team")
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude= {"homeGames", "guestGames", })
+@ToString(exclude= {"homeGames", "guestGames", "players"})
 public class Team {
 	
 	@Id
@@ -36,8 +43,11 @@ public class Team {
 	@OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
 	private List<Player> players;
 	
-	@OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
-	private List<Game> games;
+	@OneToMany(mappedBy = "homeTeam", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Game> homeGames;
+	
+	@OneToMany(mappedBy = "guestTeam", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Game> guestGames;
 	
 	public Team(TeamDTO teamDTO) {
 		update(teamDTO);
