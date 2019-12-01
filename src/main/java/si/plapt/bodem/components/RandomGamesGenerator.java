@@ -30,61 +30,60 @@ public class RandomGamesGenerator implements ApplicationRunner {
 	@Autowired
 	GameService gameService;
 	
-	private static int NUMBER_OF_WEEKS = 5;
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		List<Team> teams = mainService.getAllTeams();
 		
-		//Collections.shuffle(teams);
-		
 		int size = teams.size();
 		
+		int rounds = size - 1;
 		
+		int half = size / 2;
 		
-		List<Game> firstHalf = new ArrayList<>();
-		List<Game> secondHalf = new ArrayList<>();
+		List<Game> firstRounds = new ArrayList<>();
+		List<Game> secondRounds = new ArrayList<>();
 		
 		Random rand = new Random(System.currentTimeMillis());
 		
-		LocalDate dateFirst = LocalDate.of(2018, 3, 15);
-		LocalDate dateSecond = dateFirst.plusWeeks(5);
-		
-		for (int i=0;i<NUMBER_OF_WEEKS; i++) {
-			for (int k=0;k < size; k+=2) {
-				Team team1 = teams.get((i+k) % size);
-				Team team2 = teams.get((i+k+1) % size);
+		for (int i=0; i< rounds; i++){
+			int m = 0;
+			int n = size - 1;
+			
+			LocalDate dateFirst = LocalDate.of(2018, 3, 15);
+			LocalDate dateSecond = dateFirst.plusWeeks(rounds);
+			Date date1 = Date.from(dateFirst.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+			Date date2 = Date.from(dateSecond.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+			
+			for (int j = 0; j < half; j++) {
+				Game game1 = new Game(0l, teams.get(m), teams.get(n), rand.nextInt(6), rand.nextInt(6),date1);
+				firstRounds.add(game1);
+				Game game2 = new Game(0l, teams.get(n), teams.get(m), rand.nextInt(6), rand.nextInt(6),date2);
+				secondRounds.add(game2);
+				m++;
+				n--;
+			}			
 				
-				Date date1 = Date.from(dateFirst.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-				Date date2 = Date.from(dateSecond.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-				
-								
-				Game game1 = new Game(0l, team1, team2, rand.nextInt(6), rand.nextInt(6),date1);
-				
-				Game savedGame = gameService.saveGame(game1);
-				
-				System.out.println(savedGame.getId() + ":" + savedGame.getHomeTeam().getTitle() + ":" + savedGame.getGuestTeam().getTitle());
-				
-	//			Game game2 = new Game(0l, team2, team1, rand.nextInt(6), rand.nextInt(6),date2);
-				
-//				gameService.saveGame(game2);
-				
-				
-				//firstHalf.add(game1);
-				
-				//secondHalf.add(game2);
+			Team tmp = teams.get(size -1);
+			for (int j=size-1; j > 0; j--) {
+				teams.set(j, teams.get(j-1));
 			}
+			teams.set(1,tmp);
+			
+			
+		}
+	
+		for (Game game : firstRounds) {
+			Game savedGame = gameService.saveGame(game);			
+			System.out.println(savedGame.getId() + ":" + savedGame.getHomeTeam().getTitle() + ":" + savedGame.getGuestTeam().getTitle());
 		}
 		
-		/*firstHalf.forEach(game -> {
-			
-			Game savedGame = gameService.saveGame(game);
-			
-			//mainService.saveTeam(savedGame.getHomeTeam());
-			//mainService.saveTeam(savedGame.getGuestTeam());
-			
-			System.out.println(savedGame.getHomeTeam().getHomeGames());
-		});*/
+		for (Game game : secondRounds) {
+			Game savedGame = gameService.saveGame(game);			
+			System.out.println(savedGame.getId() + ":" + savedGame.getHomeTeam().getTitle() + ":" + savedGame.getGuestTeam().getTitle());
+		}
+		
+		
 		
 		
 		
