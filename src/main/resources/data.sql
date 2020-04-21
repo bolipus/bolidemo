@@ -1,9 +1,18 @@
+/*DELETE FROM public."xuser_xrole";
+DELETE FROM public."xuser";
+DELETE FROM public."xrole"; 
+DELETE FROM public."game" 
+DELETE FROM public."position" 
+DELETE FROM public."team";
+DELETE FROM public."player" 
+*/
 
 INSERT INTO public."xuser" (id, username, password) VALUES 
 (1, 'admin', '$2a$10$eMLmwZ5l7l94XC3XKB36huzccXNPcKCHrgyn4RSaTQ5AJZ4uA.oU6'),
 (2,'manager','$2a$10$VMOGGFaadUzkaFxcCseSF.mxzLigDuR8PymYcAdCqVTk/BrBtfBne'),
 (3,'demo','$2a$10$U8e3q6V/7NAPL7BaCqZbDeBafPm77siHh8uFjadIkh.J5vQozkjT.'),
 (4,'demo2','$2a$10$E/ZT787UbiEbOBhhidbskeWEjAjiT5FnGlz8pvJXtNwZwli3o42V6');
+
 
 INSERT INTO public."xrole" (id, name, description) VALUES 
 (1, 'ROLE_ADMIN', 'Admin'),
