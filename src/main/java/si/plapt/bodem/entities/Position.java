@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -14,7 +15,7 @@ import lombok.NoArgsConstructor;
 import si.plapt.bodem.dtos.PositionDTO;
 
 @Entity
-@Table(name="Position")
+@Table(name="position")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,7 +23,8 @@ import si.plapt.bodem.dtos.PositionDTO;
 public class Position {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "position_id_seq", sequenceName = "position_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "position_id_seq")
 	private Long id;
 	
 	@Column(length = 100)

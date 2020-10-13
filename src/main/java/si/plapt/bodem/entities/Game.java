@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,7 +25,7 @@ import si.plapt.bodem.dtos.GameDTO;
 import si.plapt.bodem.dtos.TeamDTO;
 
 @Entity
-@Table(name = "Game")
+@Table(name = "game")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,7 +34,8 @@ import si.plapt.bodem.dtos.TeamDTO;
 public class Game {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "game_id_seq", sequenceName = "game_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "game_id_seq")
 	private Long id;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)

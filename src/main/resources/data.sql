@@ -1,11 +1,12 @@
-/*DELETE FROM public."xuser_xrole";
+DELETE FROM public."xuser_xrole";
 DELETE FROM public."xuser";
 DELETE FROM public."xrole"; 
-DELETE FROM public."game" 
-DELETE FROM public."position" 
+DELETE FROM public."game";
+DELETE FROM public."player";
 DELETE FROM public."team";
-DELETE FROM public."player" 
-*/
+DELETE FROM public."position";
+
+
 
 INSERT INTO public."xuser" (id, username, password) VALUES 
 (1, 'admin', '$2a$10$eMLmwZ5l7l94XC3XKB36huzccXNPcKCHrgyn4RSaTQ5AJZ4uA.oU6'),

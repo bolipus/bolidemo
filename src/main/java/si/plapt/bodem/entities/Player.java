@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,7 +23,7 @@ import si.plapt.bodem.dtos.PlayerDTO;
 import si.plapt.bodem.dtos.PositionDTO;
 
 @Entity
-@Table(name="Player")
+@Table(name="player")
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode
@@ -30,7 +31,8 @@ import si.plapt.bodem.dtos.PositionDTO;
 public class Player {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "player_id_seq", sequenceName = "player_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "player_id_seq")
 	private Long id;
 	
 	@Column(length = 255)

@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
@@ -23,7 +24,7 @@ import lombok.ToString;
 import si.plapt.bodem.dtos.TeamDTO;
 
 @Entity
-@Table(name="Team")
+@Table(name="team")
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(exclude= {"homeGames", "guestGames", })
@@ -31,7 +32,8 @@ import si.plapt.bodem.dtos.TeamDTO;
 public class Team {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "team_id_seq", sequenceName = "team_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "team_id_seq")
 	private Long id;
 	
 	@Column(length = 100)
